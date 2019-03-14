@@ -14,14 +14,16 @@ public class DB_Connection {
 	public static Connection conn = null;
 	public static Statement stmt = null;
 	
-	public static int createDB(String DBNAME, String userID, String userPW)
+	//유저 생성
+	public int createUser(String userID, String userPW)
 	{
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",userID, userPW);
 			stmt = conn.createStatement();
 			
-			stmt.executeUpdate(DB_Query.DROP_DB + DBNAME);
-			stmt.executeUpdate(DB_Query.CREATE_DB + DBNAME);
+			stmt.executeUpdate(DB_Query.DROP_USER + "'user'@'localhost'");
+			stmt.executeUpdate("create user 'user'@'localhost' identified by '1234';");
+					
 			conn.close();
 			stmt.close();
 			
@@ -33,7 +35,32 @@ public class DB_Connection {
 		}
 	}
 	
-	public static int createTable(String DBNAME, String userID, String userPW)
+	//db생성
+	public int createDB(String DBNAME, String userID, String userPW)
+	{
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",userID, userPW);
+			stmt = conn.createStatement();
+			
+			stmt.executeUpdate(DB_Query.DROP_DB + DBNAME);
+			stmt.executeUpdate(DB_Query.CREATE_DB + DBNAME);
+			
+			//유저 권한주기 - 조회, 삽입, 삭제, 업데이
+			stmt.executeUpdate("grant select, insert, delete, update on coffee.* to 'user'@'localhost';");
+			
+			conn.close();
+			stmt.close();
+			
+			return 0;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return 1;
+			// TODO: handle exception
+		}
+	}
+	
+	//테이블 생성
+	public int createTable(String DBNAME, String userID, String userPW)
 	{	
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/"+DBNAME+"?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",userID, userPW);
@@ -48,8 +75,6 @@ public class DB_Connection {
 			importTXT("user");
 			importTXT("orderlist");
 			
-			stmt.executeUpdate("grant select, insert, drop, update on coffee.* to root@'localhost';");
-			
 			conn.close();
 			stmt.close();
 			
@@ -61,7 +86,8 @@ public class DB_Connection {
 		}	
 	}
 	
-	public static void importTXT(String Name)
+	//텍스트 파일 읽어오
+	private void importTXT(String Name)
 	{
 		String[] menu_array = new String[4];
 		String[] orderlist_array = new String[9];
