@@ -24,13 +24,13 @@ class Insert extends JFrame
 	
 	JPanel panel;
 
-	JLabel lb_Name = new JLabel("�̸�");
-	JLabel lb_ID = new JLabel("���̵�");
-	JLabel lb_PW = new JLabel("��й�ȣ");
-	JLabel lb_Barth = new JLabel("�������");
-	JLabel lb_Year = new JLabel("��");
-	JLabel lb_Month = new JLabel("��");
-	JLabel lb_Day = new JLabel("��");
+	JLabel lb_Name = new JLabel("이름");
+	JLabel lb_ID = new JLabel("아이디");
+	JLabel lb_PW = new JLabel("비밀번호");
+	JLabel lb_Barth = new JLabel("생년월일");
+	JLabel lb_Year = new JLabel("년");
+	JLabel lb_Month = new JLabel("월");
+	JLabel lb_Day = new JLabel("일");
 	
 	JComboBox cox_Year = new JComboBox();
 	JComboBox cox_month = new JComboBox();
@@ -40,13 +40,13 @@ class Insert extends JFrame
 	JTextField tx_ID = new JTextField();
 	JTextField tx_PW = new JTextField();
 	
-	JButton bt_Insert = new JButton("���ԿϷ�");
-	JButton bt_Close = new JButton("���");
+	JButton bt_Insert = new JButton("가입완료");
+	JButton bt_Close = new JButton("취소");
 
 	public Insert()
 	{
 
-		setTitle("ȸ������");
+		setTitle("회원가입");
 		setVisible(true);
 		setSize(365,220);
 		setLocationRelativeTo(null);
@@ -134,7 +134,7 @@ class Insert extends JFrame
 					String grade = "�Ϲ�";
 					
 					stmt.executeUpdate("insert into user(u_no, u_id, u_pw, u_name, u_bd, u_point, u_grade) values('"+index+"','"+id+"','"+pw+"','"+name+"','"+bd+"','"+point+"','"+grade+"')");
-					JOptionPane.showMessageDialog(null, "����� �Ϸ�Ǿ����ϴ�.");
+					JOptionPane.showMessageDialog(null, "등록이 완료되었습니다.");
 					
 				} catch (Exception e2) {
 					System.out.println(e2.getMessage());
