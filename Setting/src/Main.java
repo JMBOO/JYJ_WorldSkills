@@ -11,7 +11,7 @@ public class Main {
 		
 		if(FLAG_1 != 1 && FLAG_2 != 1)
 		{
-			JOptionPane.showMessageDialog(null, "DB Setting 완료!! 수정 수정 이현sdfsdfsdfdsf");
+			JOptionPane.showMessageDialog(null, "DB Setting 완료!! 수정 수정 이현sdfsdfsdfdsfㅇㅇㄹㄹㅇㅇㄹ");
 		}else {
 			JOptionPane.showMessageDialog(null, "에러 발생\nDB생성 오류코드 :" + FLAG_2 + "\n테이블생성 오류코드 :" + FLAG_2);
 		}
