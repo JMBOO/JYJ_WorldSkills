@@ -91,10 +91,10 @@ class Main extends JFrame
 				// TODO Auto-generated method stub
 				if(DB_Connection.searchmember(tx_ID.getText(), ps_PS.getText())[0] == "NotFound")
 				{
-					JOptionPane.showMessageDialog(null, "���̵� �Ǵ� ��й�ȣ�� �߸��Ǿ����ϴ�.","Message",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 틀렸습니다.","Message",JOptionPane.ERROR_MESSAGE);
 				}else
 				{
-					JOptionPane.showMessageDialog(null, DB_Connection.searchmember(tx_ID.getText(), ps_PS.getText())[0] + "ȸ���� ȯ���մϴ�.","Message",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, DB_Connection.searchmember(tx_ID.getText(), ps_PS.getText())[0] + "회원님 환영합니다.","Message",JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
