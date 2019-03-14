@@ -2,7 +2,9 @@
 public class DB_Query {
 	
 	protected String DB_NAME = "coffee";
-	protected String USER_ID = "root";
+	protected String ROOT_ID = "root";
+	protected String ROOT_PW = "1234";
+	protected String USER_ID = "user";
 	protected String USER_PW = "1234";
 	protected String USER_TABLE = "user";
 	protected String ORDERLIST_TABLE = "orderlist";
@@ -10,6 +12,7 @@ public class DB_Query {
 	protected String SHOPPING_TABLE = "shopping";
 
 	protected static String DROP_DB = "DROP DATABASE IF EXISTS ";
+	protected static String DROP_USER = "DROP USER IF EXISTS ";
 	protected static String CREATE_DB = "CREATE DATABASE ";
 	
 	public static String CREATE_TABLE_MENU = "CREATE TABLE menu(m_no int primary key not null auto_increment comment '분류',"
