@@ -88,7 +88,7 @@ class Main extends JFrame
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				// TODO Auto-generated method stubㅇㅇ
 				if(DB_Connection.searchmember(tx_ID.getText(), ps_PS.getText())[0] == "NotFound")
 				{
 					JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 틀렸습니다","Message",JOptionPane.ERROR_MESSAGE);
