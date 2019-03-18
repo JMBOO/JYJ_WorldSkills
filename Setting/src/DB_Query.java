@@ -8,9 +8,13 @@ public class DB_Query {
 	protected String ORDERLIST_TABLE = "orderlist";
 	protected String MENU_TABLE = "menu";
 	protected String SHOPPING_TABLE = "shopping";
-
+	
 	protected static String DROP_DB = "DROP DATABASE IF EXISTS ";
 	protected static String CREATE_DB = "CREATE DATABASE ";
+	
+	public static final String DROP_USER = "DROP USER IF EXISTS ";
+	public static final String CREATE_UESR = "CREATE USER ";
+
 	
 	public static String CREATE_TABLE_MENU = "CREATE TABLE menu(m_no int primary key not null auto_increment comment '분류',"
 			+ "m_group varchar(10) comment '분류',"
