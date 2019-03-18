@@ -45,7 +45,7 @@ public class DB_Connection {
 			stmt.executeUpdate(DB_Query.DROP_DB + DBNAME);
 			stmt.executeUpdate(DB_Query.CREATE_DB + DBNAME);
 			
-			//유저 권한주기 - 조회, 삽입, 삭제, 업데이
+			//유저 권한주기 - 조회, 삽입, 삭제, 업데이트
 			stmt.executeUpdate("grant select, insert, delete, update on coffee.* to 'user'@'localhost';");
 			
 			conn.close();
