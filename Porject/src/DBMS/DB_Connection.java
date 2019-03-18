@@ -103,24 +103,48 @@ public class DB_Connection {
 		}
 	}
 	
-	public static int searchUser(String id)
+	public static String searchUser(String id)
 	{
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/coffee?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC","root","1234");
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("Select * from user where u_id = '" + id + "'");
+			String returnValue = "0";
 			while(rs.next())
 			{
-				 System.out.println(rs.getInt(2));
+				returnValue = rs.getString(2);
 			}
 			//System.out.println(rs);
 			
-			return 0;
+			return returnValue;
 		}catch(Exception e2)
 		{
 			System.out.println(e2.getMessage());
-			return 11;
+			return "1";
 		}
 	}
+	
+//	public static String searchUser(String id)
+//	{
+//		try {
+//			String returnvalue = null;
+//			
+//			conn = DriverManager.getConnection(TB_CONN,USER_ID,USER_PW);
+//			stmt = conn.createStatement();
+//			
+//			ResultSet rs = stmt.executeQuery("Select u_name from user where u_id = '"+id+"'");
+//			
+//			if(rs.getString(0) == null)
+//			{
+//				
+//			}
+//			
+//			return returnvalue;
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//			return null;
+//			// TODO: handle exception
+//		}
+//	}
 	
 }

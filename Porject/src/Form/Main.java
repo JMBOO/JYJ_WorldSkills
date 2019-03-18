@@ -17,6 +17,10 @@ import DBMS.DB_Connection;
 public class Main extends JFrame
 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static int point;
 	public static String name;
 	public static String grade;
@@ -96,6 +100,7 @@ public class Main extends JFrame
 				// TODO Auto-generated method stub
 				if(tx_ID.getText().equals("") || ps_PS.getText().equals(""))
 				{
+
 					JOptionPane.showMessageDialog(null, "빈칸이 존재합니다.","메시지",JOptionPane.ERROR_MESSAGE);
 				}else if(tx_ID.getText() == "admin" && ps_PS.getText() == "1234")
 				{
@@ -103,15 +108,20 @@ public class Main extends JFrame
 				}else if(DB_Connection.searchmember(tx_ID.getText(), ps_PS.getText())[0] == "NotFound")
 				{
 					JOptionPane.showMessageDialog(null, "회원정보가 틀립니다.다시입력해주세요.","Message",JOptionPane.ERROR_MESSAGE);
+
+					JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 틀렸습니다.","Message",JOptionPane.ERROR_MESSAGE);
+
 				}else
 				{
 					JOptionPane.showMessageDialog(null, DB_Connection.searchmember(tx_ID.getText(), ps_PS.getText())[0] + "회원님 환영합니다.","Message",JOptionPane.INFORMATION_MESSAGE);
+
 					name = DB_Connection.searchmember(tx_ID.getText(), ps_PS.getText())[0];
 					grade = DB_Connection.searchmember(tx_ID.getText(), ps_PS.getText())[1];
 					point = Integer.parseInt(DB_Connection.searchmember(tx_ID.getText(), ps_PS.getText())[2]);
 					Menu mn = new Menu();
 					mn.setVisible(true);
 					mn.setLocationRelativeTo(null);
+
 				}
 			}
 		});
@@ -120,7 +130,6 @@ public class Main extends JFrame
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stubㅁㄴㅇ
 				dispose();
 			}
 		});

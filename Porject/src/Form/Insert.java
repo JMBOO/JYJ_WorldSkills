@@ -123,7 +123,11 @@ class Insert extends JFrame
 				}else
 				{
 					String bd = cox_Year.getSelectedItem().toString() + "-" + cox_month.getSelectedItem().toString() + "-" + cox_Day.getSelectedItem().toString();
-					System.out.println(DB_Connection.searchUser(tx_ID.getText()));
+					
+					if(DB_Connection.searchUser(tx_ID.getText()).equals("0"))
+					{
+						DB_Connection.userInsert(tx_ID.getText(), tx_PW.getText(), tx_Name.getText(), bd);
+					}	
 				}
 			}
 		});

@@ -2,7 +2,9 @@
 public class DB_Query {
 	
 	protected String DB_NAME = "coffee";
-	protected String USER_ID = "root";
+	protected String ROOT_ID = "root";
+	protected String ROOT_PW = "1234";
+	protected String USER_ID = "user";
 	protected String USER_PW = "1234";
 	protected String USER_TABLE = "user";
 	protected String ORDERLIST_TABLE = "orderlist";
