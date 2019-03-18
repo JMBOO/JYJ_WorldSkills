@@ -70,7 +70,7 @@ public class Menu extends JFrame
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				// TODO Auto-generated method stubㅁㄴㅇ
 				dispose();
 				Main.tx_ID.setText("");
 				Main.ps_PS.setText("");

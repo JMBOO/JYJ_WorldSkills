@@ -99,7 +99,7 @@ public class DB_Connection {
 			
 		} catch (Exception e2) {
 			System.out.println(e2.getMessage());
-			// TODO: handle exception
+			// TODO: handle exceptionㅁㄴㅇ
 		}
 	}
 	
