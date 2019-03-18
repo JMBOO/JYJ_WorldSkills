@@ -99,7 +99,27 @@ public class DB_Connection {
 			
 		} catch (Exception e2) {
 			System.out.println(e2.getMessage());
-			// TODO: handle exceptionㅁㄴㅇ
+			// TODO: handle exception
+		}
+	}
+	
+	public static int searchUser(String id)
+	{
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/coffee?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC","root","1234");
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("Select * from user where u_id = '" + id + "'");
+			while(rs.next())
+			{
+				 System.out.println(rs.getInt(2));
+			}
+			//System.out.println(rs);
+			
+			return 0;
+		}catch(Exception e2)
+		{
+			System.out.println(e2.getMessage());
+			return 11;
 		}
 	}
 	
