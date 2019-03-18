@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 
 import com.mysql.cj.protocol.Resultset;
 
+import DBMS.DB_Connection;
+
 class Insert extends JFrame
 {
 	public static Connection conn;
@@ -115,31 +117,23 @@ class Insert extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				try {
-					conn = DriverManager.getConnection("jdbc:mysql://localhost/coffee?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC","root","1234");
-					stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery("Select * from user");
-					int index = 0;
-					
-					while(rs.next())
-					{
-						index = rs.getInt(1) + 1;
-					}
-					
-					String name = tx_Name.getText();
-					String id = tx_ID.getText();
-					String pw = tx_PW.getText();
+				if(tx_Name.getText().equals("") || tx_ID.getText().equals("") || tx_PW.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "누락된 항목이 있습니다.", "메시지", JOptionPane.ERROR_MESSAGE);
+				}else
+				{
 					String bd = cox_Year.getSelectedItem().toString() + "-" + cox_month.getSelectedItem().toString() + "-" + cox_Day.getSelectedItem().toString();
-					int point = 0;
-					String grade = "�Ϲ�";
-					
-					stmt.executeUpdate("insert into user(u_no, u_id, u_pw, u_name, u_bd, u_point, u_grade) values('"+index+"','"+id+"','"+pw+"','"+name+"','"+bd+"','"+point+"','"+grade+"')");
-					JOptionPane.showMessageDialog(null, "등록이 완료되었습니다.");
-					
-				} catch (Exception e2) {
-					System.out.println(e2.getMessage());
-					// TODO: handle exception
+					DB_Connection.userInsert( tx_ID.getText(), tx_PW.getText(), tx_Name.getText(), bd);	
 				}
+			}
+		});
+		
+		bt_Close.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
 			}
 		});
 	}

@@ -7,7 +7,7 @@ import javax.swing.tree.*;
 import javax.swing.table.*;
 import javax.swing.border.*;
 
-class List extends JFrame
+public class List extends JFrame
 {
 	JPanel panel = new JPanel();
 

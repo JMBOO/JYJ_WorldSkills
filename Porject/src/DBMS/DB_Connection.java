@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Array.PayArray;
 
 public class DB_Connection {
@@ -75,6 +77,30 @@ public class DB_Connection {
 			// TODO: handle exception
 		}
 		
+	}
+	
+	public static void userInsert(String id, String pw, String name, String bd)
+	{
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/coffee?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC","root","1234");
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("Select * from user");
+			int index = 0;
+			
+			while(rs.next())
+			{
+				index = rs.getInt(1) + 1;
+			}
+			int point = 0;
+			String grade = "일반";
+			
+			stmt.executeUpdate("insert into user(u_no, u_id, u_pw, u_name, u_bd, u_point, u_grade) values('"+index+"','"+id+"','"+pw+"','"+name+"','"+bd+"','"+point+"','"+grade+"')");
+			JOptionPane.showMessageDialog(null, "등록이 완료되었습니다.");
+			
+		} catch (Exception e2) {
+			System.out.println(e2.getMessage());
+			// TODO: handle exception
+		}
 	}
 	
 }

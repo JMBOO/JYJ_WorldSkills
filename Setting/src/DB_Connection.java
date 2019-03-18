@@ -29,7 +29,7 @@ public class DB_Connection {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return 1;
-			// TODO: handle exception
+			// TODO: handle exception ㅗㅓㅗㅎ러
 		}
 	}
 	
