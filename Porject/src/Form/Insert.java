@@ -20,7 +20,7 @@ import DBMS.DB_Connection;
 class Insert extends JFrame
 {
 	/**
-	 * 
+	 * 수정중
 	 */
 	private static final long serialVersionUID = 1L;
 	public static Connection conn;
