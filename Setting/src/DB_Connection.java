@@ -89,6 +89,17 @@ public class DB_Connection {
 	//텍스트 파일 읽어오
 	private void importTXT(String Name)
 	{
+		try {
+			//String table;
+			//String Path = System.getProperty("user.dir") + "\\DataFiles\\" + Name + ".txt";
+			//Path = Path.replace("\\", "\\\\");
+			stmt.executeUpdate("set global local_infile=ON");
+			stmt.executeUpdate("LOAD DATA LOCAL INFILE './DataFiles/"+Name+".txt' INTO TABLE "+Name+" ignore 1 lines");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			// TODO: handle exception
+		}
+		/*
 		String[] menu_array = new String[4];
 		String[] orderlist_array = new String[9];
 		String[] user_array = new String[7];
@@ -147,6 +158,7 @@ public class DB_Connection {
         } catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
-		}		
+		}	
+		*/	
 	}
 }
