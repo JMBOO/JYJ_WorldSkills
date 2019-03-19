@@ -100,9 +100,8 @@ public class Main extends JFrame
 				// TODO Auto-generated method stub
 				if(tx_ID.getText().equals("") || ps_PS.getText().equals(""))
 				{
-
 					JOptionPane.showMessageDialog(null, "빈칸이 존재합니다.","메시지",JOptionPane.ERROR_MESSAGE);
-				}else if(tx_ID.getText() == "admin" && ps_PS.getText() == "1234")
+				}else if(tx_ID.getText().equals("admin") && ps_PS.getText().equals("1234"))
 				{
 					new Admin();
 				}else if(DB_Connection.searchmember(tx_ID.getText(), ps_PS.getText())[0] == "NotFound")

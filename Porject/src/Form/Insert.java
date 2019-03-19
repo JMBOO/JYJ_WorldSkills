@@ -3,9 +3,9 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,12 +15,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.mysql.cj.protocol.Resultset;
-
 import DBMS.DB_Connection;
 
 class Insert extends JFrame
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static Connection conn;
 	public static Statement stmt;
 	
@@ -34,10 +36,19 @@ class Insert extends JFrame
 	JLabel lb_Month = new JLabel("월");
 	JLabel lb_Day = new JLabel("일");
 	
-	JComboBox cox_Year = new JComboBox();
+	/*JComboBox cox_Year = new JComboBox();
 	JComboBox cox_month = new JComboBox();
-	JComboBox cox_Day = new JComboBox();
+	JComboBox cox_Day = new JComboBox();*/
 
+	
+	JComboBox<String> jcomtodayyear,jcomtodaymonth,jcomtodayday;
+	ArrayList<String> cox_Year;
+	ArrayList<String> cox_Month;
+	ArrayList<String> cox_Day;
+	
+	//현재 날짜를 가져오기 위한 클래스
+	Calendar calendar = Calendar.getInstance();
+	
 	JTextField tx_Name = new JTextField();
 	JTextField tx_ID = new JTextField();
 	JTextField tx_PW = new JTextField();
@@ -64,6 +75,33 @@ class Insert extends JFrame
 
 	public void makeComponent()
 	{
+		
+		int toYear = calendar.get(Calendar.YEAR);
+		int toMonth = calendar.get(Calendar.MONTH)+1;
+		int toDay = calendar.get(Calendar.DAY_OF_MONTH);
+		
+		cox_Year = new ArrayList<String>();
+		cox_Month = new ArrayList<String>();
+		cox_Day = new ArrayList<String>();
+		
+		//년
+		for(int i = toYear; i>=toYear-40; i--)
+		{
+			cox_Year.add(String.valueOf(i));
+		}
+		
+		//월
+		for(int i = 1; i<= toMonth; i++)
+		{
+			cox_Month.add(addZeroString(i));
+		}
+		
+		//일
+		for(int i = 1; i<= toDay; i++)
+		{
+			cox_Day.add(addZeroString(i));
+		}
+		
 		lb_Name.setBounds(40, 10, 40, 25);
 		panel.add(lb_Name);
 
@@ -73,28 +111,37 @@ class Insert extends JFrame
 		lb_PW.setBounds(20, 70, 60, 25);
 		panel.add(lb_PW);
 
-		lb_Barth.setBounds(40, 100, 60, 25);
+		lb_Barth.setBounds(20, 100, 60, 25);
 		panel.add(lb_Barth);
+		
+		jcomtodayyear = new JComboBox<String>(cox_Year.toArray(new String[cox_Year.size()]));
+		jcomtodayyear.setBounds(80, 100, 85, 25);
+		jcomtodayyear.setSelectedItem(String.valueOf(toYear));
+		panel.add(jcomtodayyear);
+		
+		//cox_Year.addItem("2019");
 
-		cox_Year.setBounds(95, 100, 60, 25);
-		panel.add(cox_Year);
-		cox_Year.addItem("2019");
-
-		lb_Year.setBounds(160, 100, 20, 25);
+		lb_Year.setBounds(165, 100, 20, 25);
 		panel.add(lb_Year);
 
-		cox_month.setBounds(180, 100, 50, 25);
-		panel.add(cox_month);
-		cox_month.addItem("03");
+		jcomtodaymonth = new JComboBox<String>(cox_Month.toArray(new String[cox_Month.size()]));
+		jcomtodaymonth.setBounds(180, 100, 70, 25);
+		//String mcom = toMonth >= 10?String.valueOf(toMonth):"0" + toMonth;
+		jcomtodaymonth.setSelectedItem(toMonth);
+		panel.add(jcomtodaymonth);
+//		cox_month.addItem("03");
 
-		lb_Month.setBounds(235, 100, 25, 25);
+		lb_Month.setBounds(245, 100, 25, 25);
 		panel.add(lb_Month);
 
-		cox_Day.setBounds(255, 100, 45, 25);
-		panel.add(cox_Day);
-		cox_Day.addItem("14");
+		jcomtodayday = new JComboBox<String>(cox_Day.toArray(new String[cox_Day.size()]));		
+		jcomtodayday.setBounds(255, 100, 70, 25);
+		//String dcom = toDay >= 10?String.valueOf(toDay):"0" + toDay;
+		panel.add(jcomtodayday);
+		jcomtodayday.setSelectedItem(toDay);
+//		cox_Day.addItem("14");
 		
-		lb_Day.setBounds(305, 100, 25, 25);
+		lb_Day.setBounds(325, 100, 25, 25);
 		panel.add(lb_Day);
 
 		tx_Name.setBounds(80, 10, 250, 25);
@@ -122,11 +169,11 @@ class Insert extends JFrame
 					JOptionPane.showMessageDialog(null, "누락된 항목이 있습니다.", "메시지", JOptionPane.ERROR_MESSAGE);
 				}else
 				{
-					String bd = cox_Year.getSelectedItem().toString() + "-" + cox_month.getSelectedItem().toString() + "-" + cox_Day.getSelectedItem().toString();
+					//String bd = cox_Year.getSelectedItem().toString() + "-" + cox_month.getSelectedItem().toString() + "-" + cox_Day.getSelectedItem().toString();
 					
 					if(DB_Connection.searchUser(tx_ID.getText()).equals("0"))
 					{
-						DB_Connection.userInsert(tx_ID.getText(), tx_PW.getText(), tx_Name.getText(), bd);
+						DB_Connection.userInsert(tx_ID.getText(), tx_PW.getText(), tx_Name.getText(), "222");
 					}	
 				}
 			}
@@ -140,6 +187,18 @@ class Insert extends JFrame
 				dispose();
 			}
 		});
+	}
+	
+	//한자리 날짜 앞에 0붙이기
+	private String addZeroString(int i)
+	{
+		String Value = Integer.toString(i);
+		if(Value.length() == 1)
+		{
+			Value = "0" + Value;
+		}
+		
+		return Value;
 	}
 
 }

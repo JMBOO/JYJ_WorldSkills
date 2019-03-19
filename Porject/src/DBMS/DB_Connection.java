@@ -20,7 +20,7 @@ public class DB_Connection {
 	public static final String DB_CONN = "jdbc:mysql://localhost/?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 	public static final String TB_CONN = "jdbc:mysql://localhost/"+DBNAME+"?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 	
-	public static final String USER_ID = "root";
+	public static final String USER_ID = "user";
 	public static final String USER_PW = "1234";
 	
 	public static String[] searchmember(String id, String pw)
@@ -82,7 +82,7 @@ public class DB_Connection {
 	public static void userInsert(String id, String pw, String name, String bd)
 	{
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/coffee?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC","root","1234");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/coffee?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",USER_ID,USER_PW);
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("Select * from user");
 			int index = 0;
@@ -106,7 +106,7 @@ public class DB_Connection {
 	public static String searchUser(String id)
 	{
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/coffee?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC","root","1234");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/coffee?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",USER_ID,USER_PW);
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("Select * from user where u_id = '" + id + "'");
 			String returnValue = "0";
