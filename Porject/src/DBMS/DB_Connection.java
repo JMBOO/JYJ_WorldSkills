@@ -60,7 +60,7 @@ public class DB_Connection {
 		}
 	}
 	
-	public static ArrayList<PayArray> Pay_List()
+	public static ArrayList<PayArray> Pay_List(int no)
 	{
 		ArrayList<PayArray> PayListArray = new ArrayList<PayArray>();
 		PayArray ply;
@@ -68,8 +68,25 @@ public class DB_Connection {
 		try {
 			conn = DriverManager.getConnection(TB_CONN, USER_ID, USER_PW);
 			stmt = conn.createStatement();
-			
 
+			String Select_Qurey = "Select orderlist.o_date, menu.m_name, orderlist.o_price, orderlist.o_size, orderlist.o_count, orderlist.o_amount from menu join orderlist on menu.m_no = orderlist.m_no where orderlist.u_no = "+no;
+			
+			PreparedStatement psmt = conn.prepareStatement(Select_Qurey);
+			ResultSet rs = psmt.executeQuery();
+			
+			while(rs.next())
+			{
+				ply = new PayArray(
+						rs.getDate("o_date"),
+						rs.getString("m_name"),
+						rs.getInt("o_price"),
+						rs.getString("o_size"),
+						rs.getInt("o_count"),
+						rs.getInt("o_amount")
+						);
+				PayListArray.add(ply);
+			}
+			
 			return PayListArray;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
