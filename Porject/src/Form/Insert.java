@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import DBMS.DB_Connection;
 
 class Insert extends JFrame
@@ -183,7 +182,6 @@ class Insert extends JFrame
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stubㅁㄴㅇ
 				dispose();
 			}
 		});

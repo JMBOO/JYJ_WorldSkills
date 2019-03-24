@@ -2,12 +2,12 @@ package Array;
 import java.sql.Date;
 
 public class PayArray {
-	public static Date o_bd;
-	public static String m_name;
-	public static int o_price;
-	public static String o_size;
-	public static int o_count;
-	public static int o_amount;
+	private Date o_bd;
+	private String m_name;
+	private int o_price;
+	private String o_size;
+	private int o_count;
+	private int o_amount;
 	
 	public PayArray(Date o_bd, String m_name, int o_price, String o_size, int o_count, int o_amount)
 	{

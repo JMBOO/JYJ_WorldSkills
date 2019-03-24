@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import Array.MenuArray;
 import Array.PayArray;
 
 public class DB_Connection {
@@ -60,7 +61,43 @@ public class DB_Connection {
 		}
 	}
 	
-	public static ArrayList<PayArray> Pay_List()
+	public static ArrayList<MenuArray> Menu_List(String menuType)
+	{
+		ArrayList<MenuArray> MenuListArray = new ArrayList<MenuArray>();
+		MenuArray mar;
+		
+		try {
+			conn = DriverManager.getConnection(TB_CONN, USER_ID, USER_PW);
+			stmt = conn.createStatement();
+			
+			String Select_Qurey = "Select m_group, m_name, m_price from menu where m_group ='"+menuType+"'";
+			
+			PreparedStatement psmt = conn.prepareStatement(Select_Qurey);
+			ResultSet rs = psmt.executeQuery();
+			
+			while(rs.next())
+			{
+				mar = new MenuArray(
+						rs.getString("m_group"),
+						rs.getString("m_name"),
+						rs.getInt("m_price")
+						);
+				MenuListArray.add(mar);
+			}
+			
+			conn.close();
+			stmt.close();
+			
+			return MenuListArray;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+			// TODO: handle exception
+		}
+		
+	}
+	
+	public static ArrayList<PayArray> Pay_List(int no)
 	{
 		ArrayList<PayArray> PayListArray = new ArrayList<PayArray>();
 		PayArray ply;
@@ -68,8 +105,28 @@ public class DB_Connection {
 		try {
 			conn = DriverManager.getConnection(TB_CONN, USER_ID, USER_PW);
 			stmt = conn.createStatement();
-			
 
+			String Select_Qurey = "Select orderlist.o_date, menu.m_name, orderlist.o_price, orderlist.o_size, orderlist.o_count, orderlist.o_amount from menu join orderlist on menu.m_no = orderlist.m_no where orderlist.u_no = "+no;
+			
+			PreparedStatement psmt = conn.prepareStatement(Select_Qurey);
+			ResultSet rs = psmt.executeQuery();
+			
+			while(rs.next())
+			{
+				ply = new PayArray(
+						rs.getDate("o_date"),
+						rs.getString("m_name"),
+						rs.getInt("o_price"),
+						rs.getString("o_size"),
+						rs.getInt("o_count"),
+						rs.getInt("o_amount")
+						);
+				PayListArray.add(ply);
+			}
+			
+			conn.close();
+			stmt.close();
+			
 			return PayListArray;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -97,6 +154,9 @@ public class DB_Connection {
 			stmt.executeUpdate("insert into user(u_no, u_id, u_pw, u_name, u_bd, u_point, u_grade) values('"+index+"','"+id+"','"+pw+"','"+name+"','"+bd+"','"+point+"','"+grade+"')");
 			JOptionPane.showMessageDialog(null, "등록이 완료되었습니다.");
 			
+			conn.close();
+			stmt.close();
+			
 		} catch (Exception e2) {
 			System.out.println(e2.getMessage());
 			// TODO: handle exception
@@ -115,6 +175,9 @@ public class DB_Connection {
 				returnValue = rs.getString(2);
 			}
 			//System.out.println(rs);
+			
+			conn.close();
+			stmt.close();
 			
 			return returnValue;
 		}catch(Exception e2)
