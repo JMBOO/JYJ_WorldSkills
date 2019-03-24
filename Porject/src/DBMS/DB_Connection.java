@@ -60,7 +60,7 @@ public class DB_Connection {
 			// TODO: handle exception
 		}
 	}
-	
+
 	public static ArrayList<MenuArray> Menu_List(String menuType)
 	{
 		ArrayList<MenuArray> MenuListArray = new ArrayList<MenuArray>();
@@ -96,7 +96,7 @@ public class DB_Connection {
 		}
 		
 	}
-	
+
 	public static ArrayList<PayArray> Pay_List(int no)
 	{
 		ArrayList<PayArray> PayListArray = new ArrayList<PayArray>();
@@ -124,9 +124,10 @@ public class DB_Connection {
 				PayListArray.add(ply);
 			}
 			
+
 			conn.close();
 			stmt.close();
-			
+
 			return PayListArray;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
